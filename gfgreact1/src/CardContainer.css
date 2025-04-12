@@ -1,0 +1,38 @@
+.card-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* So cards wrap on smaller screens */
+    gap: 20px;        /* Spacing between cards */
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .card-container {
+    width: 300px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s ease;
+  }
+  
+  .card-container:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+  }
+  

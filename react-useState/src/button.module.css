@@ -1,0 +1,9 @@
+.danger{
+    color: white;
+    background: red;
+}
+
+.safe{
+    color: black;
+    background: rgb(116, 255, 116);
+}
