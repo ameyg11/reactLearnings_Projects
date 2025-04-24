@@ -11,7 +11,6 @@ export default function App() {
 
   const toDoInputChange = (e) => {
     setTodo(e.target.value)
-    console.log(e.target.value)
   }
 
   const onAddTodoClick  = () => {
@@ -34,7 +33,7 @@ export default function App() {
     setTodoList(updatedTodoList)
   }
 
-  console.log(todoList)
+  
 
   return (
     <div className='colo'>
