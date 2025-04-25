@@ -6,12 +6,12 @@ import {v4 as uuid } from "uuid";
 
 export default function App() {
 
-  const [todo, setTodo] = useState();
+  const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
 
   const toDoInputChange = (e) => {
     setTodo(e.target.value)
-  }
+  } 
 
   const onAddTodoClick  = () => {
     setTodoList([...todoList, {id: uuid(), todo: todo, isCompleted: false}]);
