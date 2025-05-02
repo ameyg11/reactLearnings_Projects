@@ -1,33 +1,39 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
+import CleanUp from './cleanUp'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([]);
 
-  const getData = async () => {
+  const getData = async (URL) => {
     try{
-      const data = await axios.get(URL);
-      console.log(data)
+      const {data: {products}} = await axios.get(URL);
+      console.log(products)
+      setProducts(products)
     }catch(err){
       return err
     }
   }
 
   useEffect(() => {
-    const URL = `https://dummyjson.com/products/${count}`
+    const URL = `https://dummyjson.com/products`
 
     getData(URL);
     // fetch(URL)
     //       .then(res => res.json())
     //       .then(data => console.log(data))
-  }, [count])
+  }, [])
 
 
   return (
     <>
+      <CleanUp />
       <button onClick={() => setCount(count + 1)}>Count {count}</button>
+      {
+        products && products.length > 0 && products.map(product => <p>{product.title}</p>)
+      }
     </>
   )
 }
