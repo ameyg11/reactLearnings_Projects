@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import CleanUp from './cleanUp'
+import Lecture3 from './lecture3'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,7 +30,8 @@ function App() {
 
   return (
     <>
-      <CleanUp />
+      <Lecture3 />
+      {/* <CleanUp /> */}
       <button onClick={() => setCount(count + 1)}>Count {count}</button>
       {
         products && products.length > 0 && products.map(product => <p>{product.title}</p>)
