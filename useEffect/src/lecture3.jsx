@@ -23,18 +23,19 @@ export default function Lecture3() {
 
     useEffect(() => {
         console.log("updated Address ", defaultAddress)
-    },[defaultAddress])
+    },[defaultAddress.pinCode, defaultAddress.city])
 
 
   return (  
     <>
     <h2>Dependency array mistake in useEffect hook</h2>
     <div>
-        <input onChange={(e) => setPinCode(e.target.value)} placeholder='enter pincode' /> 
+        <input value={pinCode} onChange={(e) => setPinCode(e.target.value)} placeholder='enter pincode' /> 
     </div>
     <div>
         <button onClick={onSetPinCode}>Set Pincode</button>
     </div>
+    <p>Your City is {defaultAddress.city}</p>
     </>
   )
 }
