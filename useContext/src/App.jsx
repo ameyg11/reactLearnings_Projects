@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { products } from "./db/products";
 import "./App.css";
+import Navbar from "./components/navbar";
 // import { countReducer } from "./reducers.js/countReducer";
 
 function App() {
@@ -25,12 +26,13 @@ function App() {
   const initialState = {
     price: "",
     discount: "",
-    rating: ""
+    rating: "",
+    count: 0
   }
 
   const countReducer = (state, action) => {
-    // console.log(state.price)
-    // console.log(action)
+    console.log(state)
+    console.log(action)
     // console.log(state.discount)
     switch (action.type){
       case "SET_PRICE" :
@@ -39,6 +41,8 @@ function App() {
       return { ...state, discount: action.payload};
     case "SET_RATING":
       return { ...state, rating: action.payload };
+    case "SET_COUNT":
+      return {...state, count: state.count + 1};
     default:
       return state;
   }
@@ -56,10 +60,9 @@ function App() {
     )
   })
 
-
-
-
   return (
+    <>
+    <Navbar count={state.count}/>
     <div style={{ padding: "20px" }}>
       <h1>Products</h1>
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
@@ -88,6 +91,7 @@ function App() {
             <p>
             Price - {product.price} || Rating - {product.rating} || Discount - {product.discount};
             </p>
+            <button onClick={() => dispatch({type: "SET_COUNT"})}>Add to cart</button>
           </div>
         ))}
       </div>
@@ -103,6 +107,7 @@ function App() {
         ))}
       </div> */}
     </div>
+    </>
   );
 }
 
