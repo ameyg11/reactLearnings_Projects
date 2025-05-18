@@ -1,35 +1,109 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useReducer } from "react";
+import { products } from "./db/products";
+import "./App.css";
+// import { countReducer } from "./reducers.js/countReducer";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const initialState = {
+  //   price: "",
+  //   discount: "",
+  //   rating: "",
+  // };
+
+  // const [state, dispatch] = useReducer(countReducer, initialState);
+
+  // const filteredProducts = products.filter((product) => {
+  //   const { price, discount, rating } = state;
+  //   // console.log(state)
+  //   return (  
+  //     (price === "" || product.price <= price) &&
+  //     (discount === "" || product.discount >= discount) &&
+  //     (rating === "" || product.rating >= rating)
+  //   );
+  // });
+
+  const initialState = {
+    price: "",
+    discount: "",
+    rating: ""
+  }
+
+  const countReducer = (state, action) => {
+    // console.log(state.price)
+    // console.log(action)
+    // console.log(state.discount)
+    switch (action.type){
+      case "SET_PRICE" :
+        return {...state, price: action.payload}
+    case "SET_DISCOUNT":
+      return { ...state, discount: action.payload};
+    case "SET_RATING":
+      return { ...state, rating: action.payload };
+    default:
+      return state;
+  }
+  };
+
+  const [state, dispatch] = useReducer(countReducer, initialState);
+  
+  const filteredProducts = products.filter((product) => {
+    // console.log(state)
+    const {price, rating, discount} = state;
+    return(
+      (price === "" || product.price <= price) &&
+      (discount === "" || product.discount >= discount) &&
+      (rating === "" || product.rating >= rating)
+    )
+  })
+
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ padding: "20px" }}>
+      <h1>Products</h1>
+      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
+        <p >Filters</p>
+        <input
+          type="number"
+          placeholder="set price limit"
+          onChange={(e) => dispatch({type: "SET_PRICE", payload: e.target.value})}
+        />
+        <input 
+          type="number"
+          placeholder="set discount you want"
+          onChange={(e) => dispatch({type: "SET_DISCOUNT", payload: e.target.value})}
+        />
+        <input
+          type="number"
+          step="0.1"
+          placeholder="set rating"
+          onChange={(e) => dispatch({type: "SET_RATING", payload: e.target.value})}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
+        {filteredProducts.map((product) => (
+          <div key={product.id} style={{ border: "1px solid gray", padding: "10px" }}>
+            <strong>{product.name}</strong>
+            <p>
+            Price - {product.price} || Rating - {product.rating} || Discount - {product.discount};
+            </p>
+          </div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      {/* <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
+        {filteredProducts.map((product) => (
+          <div key={product.id} style={{ border: "1px solid gray", padding: "10px" }}>
+            <strong>{product.name}</strong>
+            <p>
+              Price - {product.price} || Rating - {product.rating} || Discount - {product.discount}
+            </p>
+          </div>
+        ))}
+      </div> */}
+    </div>
+  );
 }
 
-export default App
+export default App;
